@@ -2,7 +2,7 @@
 
 //DONE/TODO include our new npm module that reads our .env file when running our server locally
 
-require('dotenv').config;
+require('dotenv').config();
 const pg = require('pg');
 const fs = require('fs');
 const express = require('express');
