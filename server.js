@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 // const conString = 'postgres://USERNAME:PASSWORD@HOST:PORT';
 // const conString = `postgres://localhost:${PORT}`; // DONE TODO: now that we are using environment variables, move our conString to our .env file
-const client = new pg.Client(conString);
+const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
 
