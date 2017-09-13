@@ -1,18 +1,23 @@
 'use strict';
 
-//TODO include our new npm module that reads our .env file when running our server locally
+//TODO: DONE include our new npm module that reads our .env file when running our server locally
+
+
 
 
 const pg = require('pg');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
-const requestProxy = require('express-request-proxy'); // REVIEW: We've added a new package here to our requirements, as well as in the package.json
+const requestProxy = require('express-request-proxy');
+require('dotenv').config();
+
+// REVIEW: We've added a new package here to our requirements, as well as in the package.json
 const PORT = process.env.PORT || 3000;
 const app = express();
 // const conString = 'postgres://USERNAME:PASSWORD@HOST:PORT';
-const conString = ''; // TODO: now that we are using environment variables, move our conString to our .env file
-const client = new pg.Client(conString);
+//const conString = `postgres://${process.env.DATABASE_URL}`; // TODO:DONE now that we are using environment variables, move our conString to our .env file
+const client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 client.on('error', err => console.error(err));
 
@@ -21,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 // REVIEW: This is a new proxy method which acts as a 'middle man' (middleware) for our request. 
-// TODO: Set your local environment variable for GITHUB_TOKEN so you can still run your app locally. Don't forget to .gitignore the file holding your precious info! 
+// TODO-DONE ?: Set your local environment variable for GITHUB_TOKEN so you can still run your app locally. Don't forget to .gitignore the file holding your precious info! 
 function proxyGitHub( request, response ) {
   console.log( 'Routing GitHub request for', request.params[0] );
   ( requestProxy({
