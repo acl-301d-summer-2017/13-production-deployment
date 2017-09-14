@@ -32,8 +32,13 @@ function proxyGitHub( request, response ) {
 }
 
 // '/articles/:id' available as request.params.id
+
 // REVIEW: This is a new route that will utilize our middle man proxy.
 app.get('/github/*', proxyGitHub);
+
+app.get( '*', function ( req, res ) {
+  console.log( '?????????????????' );
+});
 
 app.get('/new', (request, response) => response.sendFile('new.html', {root: './public'}));
 app.get('/admin', (request, response) => response.sendFile('admin.html', {root: './public'}));
