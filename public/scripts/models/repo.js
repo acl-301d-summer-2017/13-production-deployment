@@ -4,6 +4,7 @@ var app = app || {};
 (function(module) {
   const repos = {};
 
+
   repos.all = [];
 
   repos.requestRepos = function(callback) {
@@ -12,9 +13,8 @@ var app = app || {};
     //       client side of our app, our new proxyGitHub function will be handling the token using our
     //       new environment variable!
     $.ajax({
-      url: `https://api.github.com/user/repos`,
-      type: 'GET',
-      headers: {'Authorization': `token ${githubToken}`}
+      url: '/github/user/repos',
+      type: "GET"
     })
     .then(data => repos.all = data, err => console.error(err)) // es6 syntax arrow functions
     .then(callback);
@@ -24,3 +24,5 @@ var app = app || {};
 
   module.repos = repos;
 })(app);
+
+
